@@ -31,6 +31,8 @@ Servo wheels;             // servo controling directiong of wheels
 int dirAngle=0;
 int wheel;
 int gear=0;
+int currentspeed;
+boolean stopit=false;
 
 
 void setup() {
@@ -56,7 +58,7 @@ void loop() {
   adjustGas();
   adjustWheels();
   checkStop();
-  delay(50);
+  delay(20);
 
 }
 
@@ -78,27 +80,28 @@ void checkStop() {
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH);
   distance = (duration/2) / 29.1;
-  Serial.println(distance);
-  if (distance < 50 ) {
+  if (distance < 30 ) {
     analogWrite(soundPin,distance*2);
+    stopit=true;
   } 
   else { 
     analogWrite(soundPin,255);
-
+    stopit=false;
   }
 }
 
 void adjustGas() {
-  int a;
-  a=analogRead(gasPin);
-  if (a>400) {
-    a=(a-300)/2; 
-    analogWrite(LPWM,a);
+
+  currentspeed=analogRead(gasPin);
+  if (currentspeed >400 & !stopit) {
+    currentspeed=(currentspeed-300)/2; 
+    analogWrite(LPWM,currentspeed);
   } 
   else {
-    analogWrite(LPWM,0);
+    analogWrite(LPWM,0);  
   }
 }
+
 
 
 
