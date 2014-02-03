@@ -1,6 +1,6 @@
 
 // polaris main routine - - - - - - - - - - - - - - - -
-// Milos Micic 2013 micicmilos@gmail.com
+// Milos Micic 2014 micicmilos@gmail.com
 //     
 //                 '
 //           *          .
